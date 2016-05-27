@@ -23,6 +23,6 @@ public class PortfolioAPI {
 
     @RequestMapping(value = "/zemoga_portfolio_api/user_by_twitter", method = RequestMethod.GET)
     public Portfolio getUserByTwitter(@RequestParam(value = "twitter") String twitter) {
-        return portfolioService.getUserInfo("GoT_Tyrion");
+        return portfolioService.getUserInfo("twitter");
     }
 }
