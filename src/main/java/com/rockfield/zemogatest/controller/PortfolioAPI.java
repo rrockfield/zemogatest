@@ -23,7 +23,7 @@ public class PortfolioAPI {
 
     @RequestMapping(value = "/zemoga_portfolio_api/user_info", method = RequestMethod.GET)
     public Portfolio getUserInfo(@RequestParam(value = "twitter") String twitter) {
-        return portfolioService.getUserInfo("twitter");
+        return portfolioService.getUserInfo(twitter);
     }
 
     @RequestMapping(value = "/zemoga_portfolio_api/modify_user_info", method = RequestMethod.POST)
