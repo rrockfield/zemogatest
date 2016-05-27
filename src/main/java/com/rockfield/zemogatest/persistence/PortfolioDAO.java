@@ -11,7 +11,7 @@ public interface PortfolioDAO {
     
     List<Portfolio> getAllUsers();
     
-    Portfolio getUserInfo(String twitterUserName);
+    Portfolio getUserInfo(Integer twitterId);
 
-    Portfolio modifyUserInfo(String twitter, String name, String image, String description);
+    Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description);
 }

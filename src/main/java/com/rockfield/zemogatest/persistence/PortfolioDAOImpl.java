@@ -2,10 +2,7 @@ package com.rockfield.zemogatest.persistence;
 
 import com.rockfield.zemogatest.model.Portfolio;
 import java.util.List;
-import org.hibernate.HibernateException;
-import org.hibernate.NonUniqueResultException;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,24 +24,23 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public Portfolio getUserInfo(String twitterUserName) {
-        Query query = sessionFactory.getCurrentSession().getNamedQuery("Portfolio.findByTwitterUserName");
-        query.setParameter("twitterUserName", twitterUserName);
-        return (Portfolio) query.uniqueResult();
+    public Portfolio getUserInfo(Integer twitterId) {
+        return (Portfolio) sessionFactory.getCurrentSession().get(Portfolio.class, twitterId);
     }
 
     @Override
-    public Portfolio modifyUserInfo(String twitter, String name, String image, String description) {
+    public Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description) {
         Portfolio portfolio;
         try {
-            portfolio = getUserInfo(twitter);
+            portfolio = getUserInfo(twitterId);
         } catch (NonUniqueResultException e) {
             portfolio = new Portfolio();
-            portfolio.setTwitterUserName(twitter);
+            portfolio.setIdportfolio(twitterId);
         } catch (HibernateException e) {
             portfolio = new Portfolio();
-            portfolio.setTwitterUserName(twitter);
+            portfolio.setIdportfolio(twitterId);
         }
+        portfolio.setTwitterUserName(twitterUserName);
         portfolio.setDescription(description);
         portfolio.setImageURL(image);
         portfolio.setTitle(name);
