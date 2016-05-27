@@ -16,13 +16,21 @@ public class PortfolioAPI {
     @Autowired
     private PortfolioService portfolioService;
 
-    @RequestMapping(value = "/zemoga_portfolio_api/user_info", method = RequestMethod.GET)
-    public List<Portfolio> getUserInfo() {
+    @RequestMapping(value = "/zemoga_portfolio_api/all_users", method = RequestMethod.GET)
+    public List<Portfolio> getAllUsers() {
         return portfolioService.getAllUsers();
     }
 
-    @RequestMapping(value = "/zemoga_portfolio_api/user_by_twitter", method = RequestMethod.GET)
-    public Portfolio getUserByTwitter(@RequestParam(value = "twitter") String twitter) {
+    @RequestMapping(value = "/zemoga_portfolio_api/user_info", method = RequestMethod.GET)
+    public Portfolio getUserInfo(@RequestParam(value = "twitter") String twitter) {
         return portfolioService.getUserInfo("twitter");
+    }
+
+    @RequestMapping(value = "/zemoga_portfolio_api/modify_user_info", method = RequestMethod.POST)
+    public Portfolio modifyUserInfo(@RequestParam(value = "twitter") String twitter,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "image", required = false) String image,
+            @RequestParam(value = "description", required = false) String description) {
+        return portfolioService.modifyUserInfo(twitter, name, image, description);
     }
 }

@@ -27,4 +27,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     public Portfolio getUserInfo(String twitterUserName) {
         return portfolioDAO.getUserInfo(twitterUserName);
     }
+
+    public Portfolio modifyUserInfo(String twitter, String name, String image, String description) {
+        return portfolioDAO.modifyUserInfo(twitter, name, image, description);
+    }
 }
