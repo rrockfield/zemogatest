@@ -71,9 +71,9 @@
         <title>Zemoga Twitter</title>
     </head>
     <body>
-        <form action="<%=buildServerURL(request)%>/zemoga_portfolio_api/modify_user_info" method="POST" target="blank">
-            <p><img src="<%=twitterUser.getBiggerProfileImageURL()%>" /><input type="text" name="image" value="<%=twitterUser.getBiggerProfileImageURL()%>" /></p>
+        <form action="<%=buildServerURL(request)%>/ZemogaTest/zemoga_portfolio_api/modify_user_info" method="POST" target="blank">
             <p>Twitter ID <%=twitterUser.getId()%> <input type="hidden" name="id" value="<%=twitterUser.getId()%>" /></p>
+            <p><img src="<%=twitterUser.getBiggerProfileImageURL()%>" /><input type="text" name="image" value="<%=twitterUser.getBiggerProfileImageURL()%>" /></p>
             <p>Name: <input type="text" value="<%=twitterUser.getName()%>" name="name" /></p>
             <p>Screen Name: <input type="text" value="<%=twitterUser.getScreenName()%>" name="twitter" /></p>
             <p>Description: <input type="text" value="<%=twitterUser.getDescription()%>" name="description" /></p>

@@ -31,12 +31,8 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     @Override
     public Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description) {
         Portfolio portfolio;
-        try {
-            portfolio = getUserInfo(twitterId);
-        } catch (NonUniqueResultException e) {
-            portfolio = new Portfolio();
-            portfolio.setIdportfolio(twitterId);
-        } catch (HibernateException e) {
+        portfolio = getUserInfo(twitterId);
+        if (portfolio == null) {
             portfolio = new Portfolio();
             portfolio.setIdportfolio(twitterId);
         }
