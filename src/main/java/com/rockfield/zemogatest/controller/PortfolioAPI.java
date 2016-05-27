@@ -23,7 +23,7 @@ public class PortfolioAPI {
 
     @RequestMapping(value = "/zemoga_portfolio_api/user_info", method = RequestMethod.GET)
     public Portfolio getUserInfo(@RequestParam(value = "id") String twitterId) {
-        Integer id = Integer.parseInt(twitterId);
+        Long id = Long.parseLong(twitterId);
         return portfolioService.getUserInfo(id);
     }
 
@@ -33,7 +33,7 @@ public class PortfolioAPI {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "image", required = false) String image,
             @RequestParam(value = "description", required = false) String description) {
-        Integer id = Integer.parseInt(twitterId);
+        Long id = Long.parseLong(twitterId);
         return portfolioService.modifyUserInfo(id, twitterUserName, name, image, description);
     }
 }

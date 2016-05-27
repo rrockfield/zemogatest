@@ -24,12 +24,12 @@ public class PortfolioDAOImpl implements PortfolioDAO {
     }
 
     @Override
-    public Portfolio getUserInfo(Integer twitterId) {
+    public Portfolio getUserInfo(Long twitterId) {
         return (Portfolio) sessionFactory.getCurrentSession().get(Portfolio.class, twitterId);
     }
 
     @Override
-    public Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description) {
+    public Portfolio modifyUserInfo(Long twitterId, String twitterUserName, String name, String image, String description) {
         Portfolio portfolio;
         portfolio = getUserInfo(twitterId);
         if (portfolio == null) {

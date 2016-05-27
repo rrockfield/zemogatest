@@ -3,12 +3,15 @@
     Created on : May 26, 2016, 10:49:13 PM
     Author     : Rockfield
 --%>
+<%@page import="com.rockfield.zemogatest.model.Portfolio"%>
+<%@page import="org.springframework.web.client.RestTemplate"%>
 <%@page import="twitter4j.auth.*"%>
 <%@page import="twitter4j.*"%>
 <%@page import="java.io.IOException"%>
 <%!
     private static final String CLIENTID = "DufNQZFymm1h75HDA05bj6zhN";
     private static final String CLIENTSECRET = "3zURYiSYmA4okUmiC0AxmP87G7DY9hTsTFWDglu5T4iZxvklr6";
+    RestTemplate restTemplate = new RestTemplate();
     Twitter twitter = null;
 
     public static String buildServerURL(HttpServletRequest request) {
@@ -62,7 +65,16 @@
         }
     } else {
         twitterUser = (User) userObj;
+    }
 
+    Portfolio portfolio = restTemplate.getForObject(buildServerURL(request) + "/ZemogaTest/zemoga_portfolio_api/user_info?id=" + twitterUser.getId(), Portfolio.class);
+    if (portfolio == null) {
+        portfolio = new Portfolio();
+        portfolio.setIdportfolio(twitterUser.getId());
+        portfolio.setTitle(twitterUser.getName());
+        portfolio.setTwitterUserName(twitterUser.getScreenName());
+        portfolio.setImageURL(twitterUser.getBiggerProfileImageURL());
+        portfolio.setDescription(twitterUser.getDescription());
     }
 %>
 <html>
@@ -72,16 +84,37 @@
     </head>
     <body>
         <form action="<%=buildServerURL(request)%>/ZemogaTest/zemoga_portfolio_api/modify_user_info" method="POST" target="blank">
-            <p>Twitter ID <%=twitterUser.getId()%> <input type="hidden" name="id" value="<%=twitterUser.getId()%>" /></p>
-            <p><img src="<%=twitterUser.getBiggerProfileImageURL()%>" /><input type="text" name="image" value="<%=twitterUser.getBiggerProfileImageURL()%>" /></p>
-            <p>Name: <input type="text" value="<%=twitterUser.getName()%>" name="name" /></p>
-            <p>Screen Name: <input type="text" value="<%=twitterUser.getScreenName()%>" name="twitter" /></p>
-            <p>Description: <input type="text" value="<%=twitterUser.getDescription()%>" name="description" /></p>
-            <p><input type="submit" value="Change" /></p>
+            <table width="80%">
+                <tr>
+                    <td>Twitter ID</td>
+                    
+                    <td><%=portfolio.getIdportfolio()%><input type="hidden" name="id" value="<%=portfolio.getIdportfolio()%>" /></td>
+                </tr>
+                <tr>
+                    <td><img src="<%=portfolio.getImageURL()%>" /></td>
+                    <td><input type="text" size="100" name="image" value="<%=portfolio.getImageURL()%>" /></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" size="100" value="<%=portfolio.getTitle()%>" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Screen Name:</td>
+                    <td><input type="text" size="45" value="<%=portfolio.getTwitterUserName()%>" name="twitter" /></td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><input type="text" size="100" value="<%=portfolio.getDescription()%>" name="description" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Update" /></td>
+                </tr>
+            </table>
         </form>
         <% 
             int i = 0;
-            for (Status status : twitter.getUserTimeline(twitterUser.getId())) { 
+            for (Status status : twitter.getUserTimeline(portfolio.getIdportfolio())) { 
         %>
                 <li><%= status.getText() %></li>
         <% 

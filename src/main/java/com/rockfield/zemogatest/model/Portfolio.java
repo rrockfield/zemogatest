@@ -20,7 +20,7 @@ public class Portfolio implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "idportfolio")
-    private Integer idportfolio;
+    private Long idportfolio;
     @Column(name = "imageURL")
     private String imageURL;
     @Column(name = "title")
@@ -33,15 +33,15 @@ public class Portfolio implements Serializable {
     public Portfolio() {
     }
 
-    public Portfolio(Integer idportfolio) {
+    public Portfolio(Long idportfolio) {
         this.idportfolio = idportfolio;
     }
 
-    public Integer getIdportfolio() {
+    public Long getIdportfolio() {
         return idportfolio;
     }
 
-    public void setIdportfolio(Integer idportfolio) {
+    public void setIdportfolio(Long idportfolio) {
         this.idportfolio = idportfolio;
     }
 

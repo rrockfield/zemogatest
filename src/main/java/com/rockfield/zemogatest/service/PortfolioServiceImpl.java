@@ -24,11 +24,11 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public Portfolio getUserInfo(Integer twitterId) {
+    public Portfolio getUserInfo(Long twitterId) {
         return portfolioDAO.getUserInfo(twitterId);
     }
 
-    public Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description) {
+    public Portfolio modifyUserInfo(Long twitterId, String twitterUserName, String name, String image, String description) {
         return portfolioDAO.modifyUserInfo(twitterId, twitterUserName, name, image, description);
     }
 }

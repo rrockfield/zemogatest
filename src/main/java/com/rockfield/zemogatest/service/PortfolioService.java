@@ -11,7 +11,7 @@ public interface PortfolioService {
     
     List<Portfolio> getAllUsers();
     
-    Portfolio getUserInfo(Integer twitterId);
+    Portfolio getUserInfo(Long twitterId);
 
-    Portfolio modifyUserInfo(Integer twitterId, String twitterUserName, String name, String image, String description);
+    Portfolio modifyUserInfo(Long twitterId, String twitterUserName, String name, String image, String description);
 }
